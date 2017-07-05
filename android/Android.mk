@@ -100,6 +100,7 @@ LOCAL_MODULE := sqlcipher
 LOCAL_CFLAGS := $(common_cflags) -Wno-unused \
 	-DSQLITE_ENABLE_MEMORY_MANAGEMENT=1 \
 	-DHAVE_USLEEP=1 \
+	-DHAVE_FDATASYNC=1 \
 	-DSQLITE_HAVE_ISNAN \
 	-DSQLITE_DEFAULT_FILE_FORMAT=4 \
 	-DSQLITE_THREADSAFE=2 \
@@ -135,6 +136,7 @@ LOCAL_SRC_FILES := build-info.S
 include $(BUILD_STATIC_LIBRARY)
 
 $(build_info_path)/build-info.S:
+	$(call host-echo-build-step,$(TARGET_ARCH_ABI),Build-Info) "Version:  $(WX_BUILD_VERSION)"
 	$(call host-echo-build-step,$(TARGET_ARCH_ABI),Build-Info) "Revision: $(WX_BUILD_REVISION)"
 	$(call host-echo-build-step,$(TARGET_ARCH_ABI),Build-Info) "Branch:   $(WX_BUILD_BRANCH)"
 	$(call host-echo-build-step,$(TARGET_ARCH_ABI),Build-Info) "Time:     $(WX_BUILD_TIME)"
@@ -142,6 +144,7 @@ $(build_info_path)/build-info.S:
 	@ $(HOST_ECHO) ".section .comment" > $@
 	@ $(HOST_ECHO) ".global WX_BUILD_INFO" >> $@
 	@ $(HOST_ECHO) "WX_BUILD_INFO:" >> $@
+	@ $(HOST_ECHO) ".string \"WX_BUILD_VERSION: $(WX_BUILD_VERSION)\"" >> $@
 	@ $(HOST_ECHO) ".string \"WX_BUILD_REVISION: $(WX_BUILD_REVISION)\"" >> $@
 	@ $(HOST_ECHO) ".string \"WX_BUILD_BRANCH: $(WX_BUILD_BRANCH)\"" >> $@
 	@ $(HOST_ECHO) ".string \"WX_BUILD_TIME: $(WX_BUILD_TIME)\"" >> $@
