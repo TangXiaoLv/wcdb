@@ -23,12 +23,14 @@
 
 @interface WCTSampleORM : NSObject <WCTTableCoding>
 
-@property int identifier;
-@property(retain) NSString *desc;
-@property float value;
+@property(nonatomic, assign) int identifier;
+@property(nonatomic, retain) NSString *desc;
+@property(nonatomic, assign) float value;
+@property(nonatomic, retain) NSString *timestamp;
 
 WCDB_PROPERTY(identifier)
 WCDB_PROPERTY(desc)
 WCDB_PROPERTY(value)
+WCDB_PROPERTY(timestamp)
 
 @end

@@ -1064,7 +1064,7 @@ public final class SQLiteConnectionPool implements Closeable {
                 indentedPrinter.println("<none>");
             }
 
-            Log.i(TAG,"  Available non-primary connections:");
+            printer.println("  Available non-primary connections:");
             if (!mAvailableNonPrimaryConnections.isEmpty()) {
                 final int count = mAvailableNonPrimaryConnections.size();
                 for (int i = 0; i < count; i++) {
@@ -1074,7 +1074,7 @@ public final class SQLiteConnectionPool implements Closeable {
                 indentedPrinter.println("<none>");
             }
 
-            Log.i(TAG,"  Acquired connections:");
+            printer.println("  Acquired connections:");
             if (!mAcquiredConnections.isEmpty()) {
                 for (Map.Entry<SQLiteConnection, AcquiredConnectionStatus> entry :
                         mAcquiredConnections.entrySet()) {
@@ -1093,7 +1093,7 @@ public final class SQLiteConnectionPool implements Closeable {
                 for (ConnectionWaiter waiter = mConnectionWaiterQueue; waiter != null;
                         waiter = waiter.mNext, i++) {
                     indentedPrinter.println(i + ": waited for "
-                            + ((now - waiter.mStartTime) * 0.001f)
+                            + (now - waiter.mStartTime)
                             + " ms - thread=" + waiter.mThread
                             + ", priority=" + waiter.mPriority
                             + ", sql='" + waiter.mSql + "'");
